@@ -4,7 +4,7 @@
 
 This project is a Dockerized Python Flask application built to demonstrate containerization, application health checks, environment variables, and local container testing.
 
-The goal of this project was to build a small cloud-ready application that can run locally in Docker and later be deployed to AWS using services such as EC2 and Amazon ECR.
+The goal of this project was to build a small cloud-ready application that can run locally in Docker.
 
 ## Technologies Used
 
@@ -302,8 +302,8 @@ curl http://localhost/status
 
 Future improvements for this project include:
 
-* Push the Docker image to Amazon ECR
-* Deploy the containerized application on AWS EC2
-* Configure EC2 security groups for HTTP access
-* Add CloudWatch monitoring and logging
-* Document the AWS deployment process
+- Push the Docker image to Amazon ECR
+- Pull and run the image from Amazon ECR on EC2
+- Add CloudWatch monitoring and logging
+- Add a basic CI/CD workflow with GitHub Actions
+- Add application versioning and deployment notes

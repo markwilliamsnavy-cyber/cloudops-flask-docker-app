@@ -188,6 +188,115 @@ This helped validate port mapping and basic container troubleshooting.
 * Container log review
 * Local application troubleshooting
 * GitHub documentation
+## AWS EC2 Deployment
+
+This application was also deployed on an AWS EC2 instance to demonstrate running a Dockerized Flask application in a cloud environment.
+
+The EC2 deployment used Amazon Linux 2023, Docker, Git, security group rules, and public HTTP access through port `80`.
+
+## AWS Deployment Steps
+
+1. Launched an Amazon Linux 2023 EC2 instance.
+2. Configured a security group to allow:
+
+   * SSH on port `22` from my IP address
+   * HTTP on port `80` from the internet
+3. Installed Docker and Git on the EC2 instance.
+4. Cloned this GitHub repository onto the EC2 instance.
+5. Built the Docker image on EC2.
+6. Ran the Flask container with port mapping from EC2 port `80` to container port `5000`.
+7. Passed environment variables into the running container.
+8. Verified the application through the EC2 public IPv4 address.
+9. Tested the `/health` and `/status` endpoints.
+10. Confirmed the Docker container showed a healthy status.
+
+## AWS Deployment Commands
+
+Install Docker and Git:
+
+```bash
+sudo dnf update -y
+sudo dnf install -y docker git
+sudo systemctl enable docker
+sudo systemctl start docker
+```
+
+Clone the repository:
+
+```bash
+git clone https://github.com/markwilliamsnavy-cyber/cloudops-flask-docker-app.git
+cd cloudops-flask-docker-app
+```
+
+Build the Docker image:
+
+```bash
+sudo docker build -t cloudops-flask-app .
+```
+
+Run the Docker container on EC2:
+
+```bash
+sudo docker run -d -p 80:5000 --name cloudops-flask-app \
+-e APP_NAME="CloudOps Flask App" \
+-e ENVIRONMENT="aws-ec2" \
+cloudops-flask-app
+```
+
+Check the running container:
+
+```bash
+sudo docker ps
+```
+
+Test locally from EC2:
+
+```bash
+curl http://localhost
+curl http://localhost/health
+curl http://localhost/status
+```
+
+## AWS Deployment Screenshots
+
+### AWS EC2 Home Page
+
+![AWS Home Page](aws-home-page.png)
+
+### AWS Health Endpoint
+
+![AWS Health Endpoint](aws-health-endpoint.png)
+
+### AWS Status Endpoint
+
+![AWS Status Endpoint](aws-status-endpoint.png)
+
+### Docker Container Healthy on EC2
+
+![AWS Docker Healthy](aws-docker-healthy.png)
+
+### EC2 Instance Details
+
+![AWS EC2 Instance](aws-ec2-instance.png)
+
+### Security Group Rules
+
+![AWS Security Group](aws-security-group.png)
+
+## AWS Skills Demonstrated
+
+* EC2 instance deployment
+* Amazon Linux 2023 administration
+* SSH access with key pairs
+* Docker installation on Linux
+* GitHub repository cloning on EC2
+* Docker image build on EC2
+* Container deployment on AWS
+* Port mapping from EC2 port `80` to container port `5000`
+* Security group configuration
+* Public HTTP access validation
+* Health endpoint testing
+* Container troubleshooting
 
 ## Next Steps
 
